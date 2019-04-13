@@ -1,14 +1,9 @@
 # starwars
 A fun &amp; light-weight web app to display all the Star Wars data you've ever wanted!
 
-##
-Made with React.js and gets data from API: https://swapi.co/
 
-##
-To improve it:
-1. Clone this repo
-2. Run `npm install`
-3. Run `npm start`
+##Info
+Made with React.js and gets data from API: https://swapi.co/
 
 ##
 Used Tachyons to save time on styling:<br>
@@ -19,7 +14,8 @@ To deploy React onto GitHub, refer to: https://codeburst.io/deploy-react-to-gith
 ## Available Scripts
 
 In the project directory, you can run:
-
+### `npm install`
+Installs necessary dependencies and files.
 ### `npm start`
 
 Runs the app in the development mode.<br>
