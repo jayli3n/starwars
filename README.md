@@ -6,7 +6,7 @@ A fun &amp; light-weight web app to display all the Star Wars data you've ever w
 Made with React.js and gets data from API: https://swapi.co/
 
 ##
-Used Tachyons classes on styling:<br>
+Used Tachyons classes for styling:<br>
 npm install --save-dev tachyons
 
 ##
