@@ -16,7 +16,8 @@ class App extends Component {
     super();
     this.state = {
       data: [],
-      search_field: ''
+      search_field: '',
+      loading: false
     }
     this.urls = []
 
@@ -37,29 +38,30 @@ class App extends Component {
   }
 
   onBtnClick = (event) => {
-    this.setState({data: ['loading']});
+    this.setState({loading: true});
+    this.setState({data: []});
     const btn_id = parseInt(event.target.id, 10);
 
     const fetchEverything = (param) => {
       return new Promise((resolve, reject)=>{
-        const fetch2 = (url, data = []) => {
+        const fetch2 = (url) => {
           return new Promise((resolve, reject) => {
             fetch(url).then(resp => resp.json()).then(swapi => {
-              data = data.concat(swapi.results);
+              this.setState({data: this.state.data.concat(swapi.results)});
               if(swapi.next === null){
-                resolve(data);
+                resolve();
               }
               else{
-                fetch2(swapi.next, data).then(resolvee => {
+                fetch2(swapi.next).then(resolvee => {
                   resolve(resolvee);
                 });
               }
             })
           })
         }
-        fetch2(param).then(data => {
-          resolve(data);
-        });
+        fetch2(param).then(() => {
+          this.setState({loading: false})
+          });
       })
     }
 
