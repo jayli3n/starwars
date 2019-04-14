@@ -1,3 +1,7 @@
+/**
+Written by Jay Li: https://github.com/jayli3
+*/
+
 import React, { Component } from 'react';
 import './App.css';
 import CardList from '../Components/CardList';
@@ -33,7 +37,7 @@ class App extends Component {
   }
 
   onBtnClick = (event) => {
-    this.setState({data: []});
+    this.setState({data: ['loading']});
     const btn_id = parseInt(event.target.id, 10);
 
     const fetchEverything = (param) => {
@@ -73,8 +77,11 @@ class App extends Component {
       if(typeof item.name !== "undefined"){
         return item.name.toLowerCase().includes(this.state.search_field.toLowerCase());
       }
-      if(typeof item.title !== "undefined"){
+      else if(typeof item.title !== "undefined"){
         return item.title.toLowerCase().includes(this.state.search_field.toLowerCase());
+      }
+      else{
+        return {};
       }
     })
 

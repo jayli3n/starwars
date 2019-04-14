@@ -1,3 +1,7 @@
+/**
+Written by Jay Li: https://github.com/jayli3
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
