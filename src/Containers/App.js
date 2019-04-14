@@ -17,7 +17,8 @@ class App extends Component {
     this.state = {
       data: [],
       search_field: '',
-      total: 0
+      total: 0,
+      done_loading: true
     }
     this.urls = []
 
@@ -40,10 +41,11 @@ class App extends Component {
   onBtnClick = (event) => {
     this.setState({data: []});
     this.setState({total: 0});
+    this.setState({done_loading: false});
     const btn_id = parseInt(event.target.id, 10);
 
     const fetchEverything = (param) => {
-      return new Promise((resolve, reject)=>{
+      
         const fetch2 = (url) => {
           return new Promise((resolve, reject) => {
             fetch(url).then(resp => resp.json()).then(swapi => {
@@ -60,13 +62,11 @@ class App extends Component {
             })
           })
         }
-        fetch2(param);
-      })
+        fetch2(param).then(() => this.setState({done_loading: true}))
+        .catch(err => console.log('An error has occurred: ', err))
+        .finally(() => this.setState({done_loading: true}));
     }
-
-    fetchEverything(this.urls[btn_id]).then(data_set => {
-        this.setState({data: data_set});
-      })
+    fetchEverything(this.urls[btn_id]);
   }
 
   render() {
@@ -85,7 +85,7 @@ class App extends Component {
     return (
       <div className="tc f5">
         <h1 id='title'>Star Wars DB</h1>
-        <Buttons btnClick={this.onBtnClick}/>
+        <Buttons btnClick={this.onBtnClick} done_loading={this.state.done_loading}/>
         <SearchBox searchChange={this.onSearchChange} count={this.state.data.length} total={this.state.total}/>
         <ScrollView>
         	<CardList items={filteredItems}/>
