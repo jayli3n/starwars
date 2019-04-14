@@ -5,6 +5,9 @@ import SearchBox from '../Components/SearchBox';
 import ScrollView from '../Components/ScrollView';
 import Buttons from '../Components/Buttons';
 
+const API_ADDR = 'https://swapi.co/api/';
+const urls = [];
+
 class App extends Component {
   constructor(){
     super();
@@ -19,7 +22,9 @@ class App extends Component {
     console.log(this.state.search_field);
   }
 
-  componentDidMount(){
+  onBtnClick = (event) => {
+    const btn_id = parseInt(event.target.id, 10);
+
     const fetchEverything = (param) => {
       return new Promise((resolve, reject)=>{
         const fetch2 = (url, data = []) => {
@@ -43,8 +48,15 @@ class App extends Component {
       })
     }
 
+    fetchEverything(urls[btn_id]).then(data_set => {
+        this.setState({data: data_set});
+      })
+
+  }
+
+  componentDidMount(){
     const loadData = async () => {
-      const resp = await fetch('https://swapi.co/api/');
+      const resp = await fetch(API_ADDR);
       const data = await resp.json();
       const urls = [
         data.planets,
@@ -54,9 +66,6 @@ class App extends Component {
         data.films,
         data.species
       ];
-      fetchEverything(urls[0]).then(data_set => {
-        this.setState({data: data_set});
-      })
     }
     loadData();
   }
@@ -70,7 +79,7 @@ class App extends Component {
     return (
       <div className="tc f4">
         <h1 id='title'>Star Wars DB</h1>
-        <Buttons />
+        <Buttons btnClick={this.onBtnClick}/>
         <SearchBox searchChange={this.onSearchChange}/>
         <ScrollView>
         	<CardList items={filteredItems}/>
