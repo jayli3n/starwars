@@ -86,7 +86,7 @@ class App extends Component {
       <div className="tc f5">
         <h1 id='title'>Star Wars DB</h1>
         <Buttons btnClick={this.onBtnClick} done_loading={this.state.done_loading}/>
-        <SearchBox searchChange={this.onSearchChange} count={this.state.data.length} total={this.state.total}/>
+        <SearchBox searchChange={this.onSearchChange} count={this.state.data.length} total={this.state.total} done_loading={this.state.done_loading}/>
         <ScrollView>
         	<CardList items={filteredItems}/>
         </ScrollView>

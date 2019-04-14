@@ -20,7 +20,3 @@ src: url('../Media/Starjedi.ttf');
 	font-size: 23px;
 	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
-
-.DisableBtnClass{
-	background-color: white;
-}

@@ -1,9 +1,9 @@
 import React from 'react';
 
 const SearchBox = (props) => {
-	const {searchChange, total, count} = props;
+	const {searchChange, total, count, done_loading} = props;
 	const resultsLabel = (count, total) => {
-		if(total !== 0 && count <= total && !(typeof total === "undefined")){
+		if(!done_loading || total > 0){
 			return <h1 id='results_label'>{`Results: ${count}/${total}`}</h1>
 		}
 		else if(total === 0 || typeof total === "undefined"){
