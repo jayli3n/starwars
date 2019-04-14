@@ -13,10 +13,10 @@ src: url('../Media/Starjedi.ttf');
   text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
-#loading{
+#results_label{
 	font-family: sans-serif;
 	color: #ffbb00;
 	font-weight: 800;
-	font-size: 45px;
-	text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+	font-size: 23px;
+	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
