@@ -6,7 +6,6 @@ import ScrollView from '../Components/ScrollView';
 import Buttons from '../Components/Buttons';
 
 const API_ADDR = 'https://swapi.co/api/';
-const urls = [];
 
 class App extends Component {
   constructor(){
@@ -15,14 +14,26 @@ class App extends Component {
       data: [],
       search_field: ''
     }
+    this.urls = []
+
+    fetch(API_ADDR).then(resp => resp.json()).then(results => {
+      this.urls = [
+        results.planets,
+        results.starships,
+        results.vehicles,
+        results.people,
+        results.films,
+        results.species
+      ];
+    })
   }
 
   onSearchChange = (event) => {
     this.setState({search_field: event.target.value});
-    console.log(this.state.search_field);
   }
 
   onBtnClick = (event) => {
+    this.setState({data: []});
     const btn_id = parseInt(event.target.id, 10);
 
     const fetchEverything = (param) => {
@@ -48,36 +59,27 @@ class App extends Component {
       })
     }
 
-    fetchEverything(urls[btn_id]).then(data_set => {
+    fetchEverything(this.urls[btn_id]).then(data_set => {
         this.setState({data: data_set});
       })
-
   }
 
   componentDidMount(){
-    const loadData = async () => {
-      const resp = await fetch(API_ADDR);
-      const data = await resp.json();
-      const urls = [
-        data.planets,
-        data.starships,
-        data.vehicles,
-        data.people,
-        data.films,
-        data.species
-      ];
-    }
-    loadData();
+    
   }
 
   render() {
-    console.log(this.state.data);
     let filteredItems = this.state.data.filter(item => {
-      return item.name.toLowerCase().includes(this.state.search_field.toLowerCase());
+      if(typeof item.name !== "undefined"){
+        return item.name.toLowerCase().includes(this.state.search_field.toLowerCase());
+      }
+      if(typeof item.title !== "undefined"){
+        return item.title.toLowerCase().includes(this.state.search_field.toLowerCase());
+      }
     })
 
     return (
-      <div className="tc f4">
+      <div className="tc f5">
         <h1 id='title'>Star Wars DB</h1>
         <Buttons btnClick={this.onBtnClick}/>
         <SearchBox searchChange={this.onSearchChange}/>
