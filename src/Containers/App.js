@@ -21,24 +21,26 @@ class App extends Component {
 
   componentDidMount(){
     const fetchEverything = (param) => {
-      const fetch2 = (url, data = []) => {
-        return new Promise((resolve, reject) => {
-          fetch(url).then(resp => resp.json()).then(swapi => {
-            data = data.concat(swapi.results);
-            if(swapi.next === null){
-              resolve(data);
-            }
-            else{
-              fetch2(swapi.next, data).then(resolvee => {
-                resolve(resolvee);
-              });
-            }
+      return new Promise((resolve, reject)=>{
+        const fetch2 = (url, data = []) => {
+          return new Promise((resolve, reject) => {
+            fetch(url).then(resp => resp.json()).then(swapi => {
+              data = data.concat(swapi.results);
+              if(swapi.next === null){
+                resolve(data);
+              }
+              else{
+                fetch2(swapi.next, data).then(resolvee => {
+                  resolve(resolvee);
+                });
+              }
+            })
           })
-        })
-      }
-      fetch2(param).then(data => {
-        return data;
-      });
+        }
+        fetch2(param).then(data => {
+          resolve(data);
+        });
+      })
     }
 
     const loadData = async () => {
@@ -52,23 +54,26 @@ class App extends Component {
         data.films,
         data.species
       ];
-
-      fetchEverything(urls[0]);
-      // for (let i = 0; i < urls.length; i+=1){
-      //   this.setState({data: this.state.data.concat(fetchEverything(urls[i]))});
-      // }
+      fetchEverything(urls[0]).then(data_set => {
+        this.setState({data: data_set});
+      })
     }
     loadData();
   }
 
   render() {
+    console.log(this.state.data);
+    let filteredItems = this.state.data.filter(item => {
+      return item.name.toLowerCase().includes(this.state.search_field.toLowerCase());
+    })
+
     return (
       <div className="tc f4">
         <h1 id='title'>Star Wars DB</h1>
         <Buttons />
         <SearchBox searchChange={this.onSearchChange}/>
         <ScrollView>
-        	<CardList />
+        	<CardList items={filteredItems}/>
         </ScrollView>
       </div>
     )
