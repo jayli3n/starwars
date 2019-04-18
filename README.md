@@ -1,6 +1,6 @@
 # starwars
-Live: https://jayli3.github.io/starwars/ <br>
-A fun &amp; light-weight web app to display all the Star Wars data you've ever wanted!
+Live: https://jayli3.github.io/starwars/ <br><br>
+A fun &amp; light-weight web app to display all the Star Wars data you'll ever want!
 
 
 ## Info
