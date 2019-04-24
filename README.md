@@ -1,81 +1,112 @@
-# starwars
-Live: https://jayli3.github.io/starwars/ <br><br>
-A fun &amp; light-weight web app to display all the Star Wars data you'll ever want!
+# [StarWars DB](https://jayli3.github.io/starwars/ "starwars")
+`Live:` https://jayli3.github.io/starwars/
+
+A fun & light-weight web app to display all the Star Wars data you'll ever want!
+
+This is just a side project to familiarize myself with `React.js`. 
+
+To complete this without the hassel of worrying about CSS, I used a node package called `tachyons` toolkit to help with the styling.
+
+##Info
+- Star Wars data are retrieved from API: https://swapi.co/
+- Deployed this `React.js` app onto GitHub using NPM `gh-pages`
+	Read: https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d
+
+##Features & Code Snippets
+Below are some of the features and code extracts of this coding exercise.
 
 
-## Info
-Made with React.js and gets data from API: https://swapi.co/
 
-##
-Used Tachyons classes for styling:<br>
-npm install --save-dev tachyons
+### AJAX Loading:
+----
+Clicking on the category loads data from the star wars API, 10 items at a time. Each load appends to a data list stored in the component&apos;s `state` for display.
 
-##
-To deploy React onto GitHub, refer to: https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d
-## Available Scripts
+[![ajax loading](https://github.com/jayli3/starwars/blob/master/README_resources/gif01.gif?raw=true "ajax loading")](https://github.com/jayli3/starwars/blob/master/README_resources/gif01.gif?raw=true "ajax loading")
 
-In the project directory, you can run:
-### `npm install`
-Installs necessary dependencies and files.
-### `npm start`
+##### javascript:
+```javascript
+onBtnClick = (event) => {
+  this.setState({data: []});
+  this.setState({total: 0});
+  this.setState({done_loading: false});
+  const btn_id = parseInt(event.target.id, 10);
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  const fetchEverything = (param) => {
+    
+      const fetch2 = (url) => {
+        return new Promise((resolve, reject) => {
+          fetch(url).then(resp => resp.json()).then(swapi => {
+            this.setState({data: this.state.data.concat(swapi.results)});
+            this.setState({total: swapi.count});
+            if(swapi.next === null){
+              resolve();
+            }
+            else{
+              fetch2(swapi.next).then(resolvee => {
+                resolve(resolvee);
+              });
+            }
+          })
+        })
+      }
+      fetch2(param).then(() => this.setState({done_loading: true}))
+      .catch(err => console.log('An error has occurred: ', err))
+      .finally(() => this.setState({done_loading: true}));
+  }
+  fetchEverything(this.urls[btn_id]);
+}
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+### Dynamic Search:
+----
+The search field narrows down results immediately by using `array.filter()` to filter through the full list of star wars data first before feeding the list to CardList component to display.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Converting star wars data and user entered string to lowercase allows more accurate comparison.
 
-### `npm run build`
+[![dynamic search](https://github.com/jayli3/starwars/blob/master/README_resources/gif03.gif?raw=true "dynamic search")](https://github.com/jayli3/starwars/blob/master/README_resources/gif03.gif?raw=true "dynamic search")
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### javascript:
+```javascript
+let filteredItems = this.state.data.filter(item => {
+  if(typeof item.name !== "undefined"){
+    return item.name.toLowerCase().includes(this.state.search_field.toLowerCase());
+  }
+  else if(typeof item.title !== "undefined"){
+    return item.title.toLowerCase().includes(this.state.search_field.toLowerCase());
+  }
+  else{
+    return {};
+  }
+})
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Scroll View Component:
+----
+The list of Cards are contained in a reusable ScrollView Component. 
+By using `{props.children}`, ScrollView automatically takes into context what to render inside it.
 
-### `npm run eject`
+[![scrollview component](https://github.com/jayli3/starwars/blob/master/README_resources/gif02.gif?raw=true "scrollview component")](https://github.com/jayli3/starwars/blob/master/README_resources/gif02.gif?raw=true "scrollview component")
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+##### javascript:
+```javascript
+import React from 'react';
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const ScrollView = (props) => {
+	return(
+		<div className= 'pa3' style={{overflowY: 'scroll', border: '3px solid black', height: '800px'}}>
+			{props.children}
+		</div>
+	)
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+export default ScrollView;
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## NPM Dev Packages:
+```json
+"devDependencies": {
+    "tachyons": "^4.11.1"
+  }
+```
