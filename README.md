@@ -7,12 +7,12 @@ This is just a side project to familiarize myself with `React.js`.
 
 To complete this without the hassel of worrying about CSS, I used a node package called `tachyons` toolkit to help with the styling.
 
-##Info
+## Info
 - Star Wars data are retrieved from API: https://swapi.co/
 - Deployed this `React.js` app onto GitHub using NPM `gh-pages`
 	Read: https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d
 
-##Features & Code Snippets
+## Features & Code Snippets
 Below are some of the features and code extracts of this coding exercise.
 
 
