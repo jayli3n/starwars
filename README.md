@@ -1,5 +1,5 @@
-# [StarWars DB](https://jayli3.github.io/starwars/ "starwars")
-`Live:` https://jayli3.github.io/starwars/
+# [StarWars DB](https://jayli3n.github.io/starwars/ "starwars")
+`Live:` https://jayli3n.github.io/starwars/
 
 A fun & light-weight web app to display all the Star Wars data you'll ever want!
 
@@ -21,7 +21,7 @@ Below are some of the features and code extracts of this coding exercise.
 ----
 Clicking on the category loads data from the star wars API, 10 items at a time. Each load appends to a data list stored in the component&apos;s `state` for display.
 
-[![ajax loading](https://github.com/jayli3/starwars/blob/master/README_resources/gif01.gif?raw=true "ajax loading")](https://github.com/jayli3/starwars/blob/master/README_resources/gif01.gif?raw=true "ajax loading")
+[![ajax loading](https://github.com/jayli3n/starwars/blob/master/README_resources/gif01.gif?raw=true "ajax loading")](https://github.com/jayli3n/starwars/blob/master/README_resources/gif01.gif?raw=true "ajax loading")
 
 ##### javascript:
 ```javascript
@@ -64,7 +64,7 @@ The search field narrows down results immediately by using `array.filter()` to f
 
 Converting star wars data and user entered string to lowercase allows more accurate comparison.
 
-[![dynamic search](https://github.com/jayli3/starwars/blob/master/README_resources/gif03.gif?raw=true "dynamic search")](https://github.com/jayli3/starwars/blob/master/README_resources/gif03.gif?raw=true "dynamic search")
+[![dynamic search](https://github.com/jayli3n/starwars/blob/master/README_resources/gif03.gif?raw=true "dynamic search")](https://github.com/jayli3n/starwars/blob/master/README_resources/gif03.gif?raw=true "dynamic search")
 
 ##### javascript:
 ```javascript
@@ -87,7 +87,7 @@ let filteredItems = this.state.data.filter(item => {
 The list of Cards are contained in a reusable ScrollView Component. 
 By using `{props.children}`, ScrollView automatically takes into context what to render inside it.
 
-[![scrollview component](https://github.com/jayli3/starwars/blob/master/README_resources/gif02.gif?raw=true "scrollview component")](https://github.com/jayli3/starwars/blob/master/README_resources/gif02.gif?raw=true "scrollview component")
+[![scrollview component](https://github.com/jayli3n/starwars/blob/master/README_resources/gif02.gif?raw=true "scrollview component")](https://github.com/jayli3n/starwars/blob/master/README_resources/gif02.gif?raw=true "scrollview component")
 
 ##### javascript:
 ```javascript

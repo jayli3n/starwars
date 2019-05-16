@@ -2,7 +2,7 @@
   "name": "starwars",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jayli3.github.io/starwars/",
+  "homepage": "https://jayli3n.github.io/starwars/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",

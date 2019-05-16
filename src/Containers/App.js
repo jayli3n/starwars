@@ -1,5 +1,5 @@
 /**
-Written by Jay Li: https://github.com/jayli3
+Written by Jay Li: https://github.com/jayli3n
 */
 
 import React, { Component } from 'react';
